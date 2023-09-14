@@ -1,44 +1,29 @@
-import random
+import math
+print("WELCOME TO THE DISTANCE CALCULATOR")
+def calculate_distance(x1, y1, x2, y2):
+    return math.sqrt((x2 -x1) ** 2 +(y2 - y1)** 2)
+def calculate_triangle_properties(x1, y1, x2, y2, x3, y3):
 
-while True:
+    side1 = calculate_distance(x1, y1, x2, y2)
+    side2 = calculate_distance(x2, y2, x3, y3)
+    side3 = calculate_distance(x3, y3, x1, y1)
 
-    print("Dice Sim Menu")
-    print("1: Roll Dice Once")
-    print("2: Roll Dice 5 Times")
-    print("3: Roll Dice 'n' times")
-    print("4: Roll Dice until Snake Eyes")
-    print("5: Exit")
-    print('')
+    perimeter = side1 + side2 + side3
+    return {
+        'AB': side1,
+        'AC': side2,
+        'BC': side3,
+        'Perimeter':perimeter
+    }
 
-    roll = input("\nSelect an option (1-5): ")
-    print('')
+x1 = float(input('Enter x-coordinate for P1: '))
+y1 = float(input('Enter y-coordinate for P1: '))
+x2 = float(input('Enter x-coordinate for P2: '))
+y2 = float(input('Enter y-coordinate for P2: '))
+x3 = float(input('Enter x-coordinate for P3: '))
+y3 = float(input('Enter y-coordinate for P3: '))
 
-    if roll == "1":
-        randNumA = random.randint(1, 6)
-        randNumB = random.randint(1, 6)
-        print(f"{randNumA}, {randNumB} (Sum: {randNumA + randNumB})")
-    elif roll == "2":
-        for n in range(5):
-            randNumA = random.randint(1, 6)
-            randNumB = random.randint(1, 6)
-            print(f"{randNumA}, {randNumB} (Sum: {randNumA + randNumB})")
-    elif roll == "3":
-        ranD = int(input("Enter the number of times you want to roll: "))
-        for n in range(ranD):
-            randNumA = random.randint(1, 6)
-            randNumB = random.randint(1, 6)
-            print(f"{randNumA}, {randNumB} (Sum: {randNumA + randNumB})")
-    elif roll == "4":
-        rollCnt = 0
-        while True:
-            randNumA = random.randint(1, 6)
-            randNumB = random.randint(1, 6)
-            print(f"{randNumA}, {randNumB} (Sum: {randNumA + randNumB})")
-            rollCnt += 1
-            if randNumA == randNumB:
-                print(
-                    f"SNAKE EYES! It took {rollCnt} rolls to get snake eyes.")
-                break
-    elif roll == "5":
-        print("Thanks for using the Simulator")
-        break
+triangle_properties = calculate_triangle_properties(x1, y1, x1, y2, x3, y3)
+
+for key, value in triangle_properties.items():
+    print(f"{key}: {value}")
